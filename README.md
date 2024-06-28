@@ -1,1 +1,2 @@
-"# Particle-Interaction-Simulation" 
+Particle-Interaction-Simulation via Verlet method
+ 
