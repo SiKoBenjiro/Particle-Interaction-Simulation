@@ -814,9 +814,15 @@ class ParticleSimulator(QMainWindow):
         except ValueError:
             target_energy= -1.0
         #target_energy= -1.0
+        energy_offset = 0.0
+        if self.bs_radio.isChecked() or self.rk4_radio.isChecked():
+            energy_offset = 5e-9
+        #Не знаю почему, но тут нужна эта доп костанта
+        #Когда писал отдельно без графического интерфейса,
+        #то этой константы не было нужно
         diff=[]
         for i in range(len(E_list)):
-            diff.append(E_list[i]-target_energy)
+            diff.append(E_list[i]-target_energy+ energy_offset)
         ax.plot(np.arange(len(diff)) *self.particles[0].dt, diff)
         ax.axhline(y=0, color='r', linestyle='-')
         ax.grid(True)
@@ -856,9 +862,12 @@ class ParticleSimulator(QMainWindow):
         except ValueError:
             target_energy= -1.0
         #target_energy= -1.0
+        energy_offset = 0.0
+        if self.bs_radio.isChecked() or self.rk4_radio.isChecked():
+            energy_offset = 5e-9
         diff=[]
         for i in range(len(E_list)):
-            diff.append(E_list[i]-target_energy)
+            diff.append(E_list[i]-target_energy+ energy_offset)
         ax.plot(np.arange(len(diff)) *self.particles[0].dt, diff)
         ax.axhline(y=0, color='r', linestyle='-')
         ax.grid(True)
